@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% load humanize %}
 
-{% block title %}First page{% endblock %}
+{% block title %}All products{% endblock %}
 
 {% block content %}
     <!-- เนื้อหา (Content) -->
@@ -9,12 +9,11 @@
       <div class="container">
           <div class="mbr-section-head">
               <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                  <strong>สินค้ายอดนิยม</strong>
+                  <strong>สินค้าทั้งหมด</strong>
               </h4>
           </div>
           <div class="row mt-4">
-              <!-- ข้อมูลสินค้า -->
-              {% for product in products %}
+            {% for product in all_products %}
               <div class="item features-image сol-12 col-md-6 col-lg-4">
                   <div class="item-wrapper">
                       <div class="item-img">
@@ -42,6 +41,18 @@
               </div>
               {% endfor %}
           </div>
+          <!-- หมายเลขหน้า -->
+          <nav aria-label="product-pagination" class="media-container-row">
+              <ul class="pagination pagination-lg">
+                {% for num in all_products.paginator.page_range %}
+                  {% if num != all_products.number %}
+                    <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+                  {% else %}
+                    <li class="page-item active"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+          </nav>
       </div>
   </section>
 {% endblock %}
